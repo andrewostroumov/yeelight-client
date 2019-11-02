@@ -4,6 +4,7 @@ require "yeelight_client/requests"
 require "yeelight_client/response"
 require "yeelight_client/response/result"
 require "yeelight_client/response/exception"
+require "yeelight_client/broadcast"
 
 class YeelightClient
   include Requests

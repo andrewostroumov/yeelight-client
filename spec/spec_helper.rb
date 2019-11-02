@@ -1,5 +1,5 @@
 require "bundler/setup"
-require "yeelight/client"
+require "yeelight_client"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
