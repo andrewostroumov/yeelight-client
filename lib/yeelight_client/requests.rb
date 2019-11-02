@@ -2,6 +2,18 @@ class YeelightClient
   module Requests
     extend Handler
 
+    def get_prop(props: nil)
+      props = prep_props(props || PROPERTIES)
+
+      query = {
+        method: "get_prop",
+        params: props
+      }
+
+      responses = @connection.request(query)
+      responses.map { |response| Response::Properties.new(props, response) }
+    end
+
     def set_bright(value, params: {})
       params = prep_params(params)
         .slice(:effect, :duration)

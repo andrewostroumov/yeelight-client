@@ -2,15 +2,22 @@ class YeelightClient
   class Response
     class Result < YeelightClient::Response
       def data
-        return unless success?
-        super["result"]
+        return {} unless success?
+        @data["result"]
       end
 
-      # {"id"=>4, "error"=>{"code"=>-5000, "message"=>"general error"}}
-      # Result {"id":8232,"error":{"code":-1,"message":"client quota exceeded"}}
       def detect_errors
-        return unless success?
+        return if success?
+        message = @data.dig("error", "message")
 
+        case message
+        when /client quota exceeded/i
+          assign_errors(:request_quota, :device_error)
+        when /general error/i
+          assign_errors(:bad_request, :bad_input)
+        else
+          super
+        end
       end
     end
   end

@@ -25,6 +25,8 @@ class YeelightClient
       def detect_errors
         # EOFError - when lamp is busy
         case @exception
+        when JSON::ParserError
+          assign_errors(:invalid_json, :device_error)
         when EOFError
           assign_errors(:device_busy, :device_error)
         when Timeout::Error, Errno::ETIMEDOUT
