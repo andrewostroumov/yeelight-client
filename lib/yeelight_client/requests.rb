@@ -2,8 +2,8 @@ class YeelightClient
   module Requests
     extend Handler
 
-    def get_prop(props: nil)
-      props = prep_props(props || PROPERTIES)
+    def get_prop(props:)
+      props = prep_props(props)
 
       query = {
         method: "get_prop",
